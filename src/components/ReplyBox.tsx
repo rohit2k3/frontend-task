@@ -22,9 +22,10 @@ const ReplyBox: React.FC = () => {
           border={'none'}
           flex={1}
           mx={0}
-          placeholder="Type a message..."
+          placeholder="Replying to @Rahul Yadav"
           variant="filled"
           bg="white"
+          color={'#b7b7b7'}
         />
         <Menu>
           <MenuButton bg={'transparent'} as={IconButton} icon={<ImAttachment />} />
@@ -32,8 +33,8 @@ const ReplyBox: React.FC = () => {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            width="auto"   // Ensures the MenuList takes appropriate width
-            minWidth="150px" // Sets a minimum width for better layout
+            width="auto"   
+            minWidth="150px" 
             bg={'#008000'}
             borderRadius={'2rem'}
             border={'none'}
@@ -43,7 +44,7 @@ const ReplyBox: React.FC = () => {
               justifyContent="center"
               alignItems="center"
               width="auto"
-              px={4}        // Adds padding for a nicer layout
+              px={4}        
             >
               <IconButton color={"white"} bg={'transparent'} icon={<LuCamera fontSize={'x-large'} />} aria-label="Chat" />
               <IconButton color={"white"} bg={'transparent'} icon={<LuVideo fontSize={'x-large'} />} aria-label="Attachment" ml={2} />
