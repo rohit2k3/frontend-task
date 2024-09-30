@@ -1,6 +1,6 @@
 'use client';
 
-import { Avatar, AvatarBadge, Box, Flex, Icon, Text } from '@chakra-ui/react';
+import { Avatar, AvatarBadge, Box, Flex, Text } from '@chakra-ui/react';
 import DateSeparator from './DateSeparator';
 import { RiVerifiedBadgeFill } from 'react-icons/ri';
 
