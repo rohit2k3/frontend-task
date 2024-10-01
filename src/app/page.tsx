@@ -34,7 +34,7 @@ const Home: React.FC = () => {
 
         {/* Chat Messages */}
         <Box flex={1} overflowY="auto">
-          <ChatMessages chats={apiData?.chats || []} />
+          <ChatMessages  />
         </Box>
 
         {/* Reply Box */}
