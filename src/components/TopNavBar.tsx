@@ -35,7 +35,7 @@ const TopNavBar: React.FC<MessageProps> = ({ avatar, fromName, toName, tripNo })
           <IconButton bg={'transparent'} fontSize={'x-large'} icon={<ArrowBackIcon />} aria-label="Back" />
           <Text mx={2} fontWeight="bold" fontSize="x-large">{tripNo}</Text>
         </Flex>
-        <FiEdit style={{margin:"0.5rem 1rem"}} fontSize="x-large"/>
+        <FiEdit style={{ margin: "0.5rem 1rem" }} fontSize="x-large" />
       </Flex>
 
       {/* //second */}
@@ -70,8 +70,10 @@ const TopNavBar: React.FC<MessageProps> = ({ avatar, fromName, toName, tripNo })
         <Menu>
           <MenuButton bg={'transparent'} as={IconButton} icon={<HiDotsVertical fontSize={'large'} />} />
           <MenuList>
-            <MenuItem icon={<SlPeople fontSize={'large'} />}>Members</MenuItem>
-            <MenuItem icon={<LuPhone fontSize={'large'} />}>Share Number</MenuItem>
+            <MenuItem borderBottom="1px solid"
+              borderColor="#e5e5e0" icon={<SlPeople fontSize={'large'} />}>Members</MenuItem>
+            <MenuItem borderBottom="1px solid"
+              borderColor="#e5e5e0" icon={<LuPhone fontSize={'large'} />}>Share Number</MenuItem>
             <MenuItem icon={<BiMessageX fontSize={'large'} />}>Report</MenuItem>
           </MenuList>
         </Menu>
