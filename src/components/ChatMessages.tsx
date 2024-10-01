@@ -19,7 +19,6 @@ interface ChatMessage {
 const ChatMessages: React.FC = () => {
   const [chats, setChats] = useState<ChatMessage[]>([]);
   const [page, setPage] = useState(0); 
-  const [loading, setLoading] = useState(false); 
   const [isInitialScrollDone, setIsInitialScrollDone] = useState(false); 
   const [loadingMore, setLoadingMore] = useState(false); 
 
@@ -28,14 +27,12 @@ const ChatMessages: React.FC = () => {
 
   const fetchChats = async (pageNum: number) => {
     setLoadingMore(true);
-    setLoading(true); 
     try {
       const response = await axios.get(`https://qa.corider.in/assignment/chat?page=${pageNum}`);
       setChats((prevChats) => [...response.data.chats, ...prevChats]); 
     } catch (error) {
       console.error('Error fetching chat data:', error);
     } finally {
-      setLoading(false); 
       setLoadingMore(false); 
     }
   };
