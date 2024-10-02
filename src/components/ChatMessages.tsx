@@ -18,22 +18,23 @@ interface ChatMessage {
 
 const ChatMessages: React.FC = () => {
   const [chats, setChats] = useState<ChatMessage[]>([]);
-  const [page, setPage] = useState(0); 
-  const [isInitialScrollDone, setIsInitialScrollDone] = useState(false); 
-  const [loadingMore, setLoadingMore] = useState(false); 
+  const [page, setPage] = useState(0);
+  const [isInitialScrollDone, setIsInitialScrollDone] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
 
-  const messagesEndRef = useRef<HTMLDivElement>(null); 
-  const chatContainerRef = useRef<HTMLDivElement>(null); 
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  const previousScrollHeightRef = useRef<number>(0);
 
   const fetchChats = async (pageNum: number) => {
     setLoadingMore(true);
     try {
       const response = await axios.get(`https://qa.corider.in/assignment/chat?page=${pageNum}`);
-      setChats((prevChats) => [...response.data.chats, ...prevChats]); 
+      setChats((prevChats) => [...response.data.chats, ...prevChats]);
     } catch (error) {
       console.error('Error fetching chat data:', error);
     } finally {
-      setLoadingMore(false); 
+      setLoadingMore(false);
     }
   };
 
@@ -46,18 +47,28 @@ const ChatMessages: React.FC = () => {
       if (messagesEndRef.current) {
         messagesEndRef.current.scrollIntoView();
       }
-      setIsInitialScrollDone(true); 
+      setIsInitialScrollDone(true);
     }
   }, [chats, isInitialScrollDone]);
 
   const handleScroll = () => {
     if (chatContainerRef.current) {
-      const { scrollTop } = chatContainerRef.current;
+      const { scrollTop, scrollHeight } = chatContainerRef.current;
+      previousScrollHeightRef.current = scrollHeight;
+
       if (scrollTop === 0 && !loadingMore) {
-        setPage((prevPage) => prevPage + 1); 
+        setPage((prevPage) => prevPage + 1);
       }
     }
   };
+
+  useEffect(() => {
+    if (loadingMore && chatContainerRef.current) {
+      const newScrollHeight = chatContainerRef.current.scrollHeight;
+      const heightDifference = newScrollHeight - previousScrollHeightRef.current;
+      chatContainerRef.current.scrollTop = heightDifference;
+    }
+  }, [loadingMore, chats]);
 
   return (
     <Box
@@ -65,10 +76,9 @@ const ChatMessages: React.FC = () => {
       p={4}
       maxH="100%"
       overflowY="auto"
-      onScroll={handleScroll} 
-      ref={chatContainerRef} 
+      onScroll={handleScroll}
+      ref={chatContainerRef}
     >
-      {/* Show loading spinner while fetching more data */}
       {loadingMore && (
         <Center>
           <Spinner size="md" color="blue.500" />
@@ -86,7 +96,6 @@ const ChatMessages: React.FC = () => {
         />
       ))}
 
-      {/* Bottom anchor point to scroll to */}
       <div ref={messagesEndRef} />
     </Box>
   );
